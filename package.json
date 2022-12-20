@@ -1,0 +1,11 @@
+{
+  "name": "flask_web_app",
+  "version": "1.0.0",
+  "description": "AI chatbot web app for 2022 scholar podium",
+  "main": "index.js",
+  "scripts": {
+    "test": "hello world from flask"
+  },
+  "author": "Yewon Seo, Gyeongseok Shin",
+  "license": "ISC"
+}
