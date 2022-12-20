@@ -3,6 +3,7 @@ import sys
 import time
 import openai
 openai.api_key = "REDACTED"
+os.environ["OPENAI_API_KEY"] = "REDACTED"
 
 #브라우저
 from selenium import webdriver
@@ -127,46 +128,45 @@ def identify_searchword(input):
     return response
 
 #입력값 확인
-from flask_test import InputTxt  #html form에서 받은 string 가져옴
-def chat():
-    text = InputTxt
-    if "time" in text:
-        response = "It is " + action_time() + "."
-    elif any(i in text for i in ['weather', 'Weather', 'WEather']):
-        response = action_weather()
-    elif any(i in text.lower() for i in ['search', 'play', 'music', 'watch', 'youtube', 'song', 'internet', 'chrome', 'listen']):
-        response = 'searching ' + search_web(text)
-    else:
-        response = openai.Completion.create(
-            model='text-davinci-003',
-            prompt = """
-            The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.
-            The completion can’t go to a new line.
-            The completion can’t change the speaker.
-            The completion won’t allow the speaker to speak twice in a row
+# def chat():
+#     text = InputTxt
+#     if "time" in text:
+#         response = "It is " + action_time() + "."
+#     elif any(i in text for i in ['weather', 'Weather', 'WEather']):
+#         response = action_weather()
+#     elif any(i in text.lower() for i in ['search', 'play', 'music', 'watch', 'youtube', 'song', 'internet', 'chrome', 'listen']):
+#         response = 'searching ' + search_web(text)
+#     else:
+#         response = openai.Completion.create(
+#             model='text-davinci-003',
+#             prompt = """
+#             The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.
+#             The completion can’t go to a new line.
+#             The completion can’t change the speaker.
+#             The completion won’t allow the speaker to speak twice in a row
 
-            Human: Hello, who are you?
-            AI: I am your humble AI servant created by HAFS Artifical Intelligence Research Club.
-            AI: How can I help you?
-            Human: """ + text + """
-            AI: """,
-            temperature = 0.9,
-            max_tokens=500
-        )
-        response = response.choices[0].text.replace("\n", "").lstrip()
-    return response
+#             Human: Hello, who are you?
+#             AI: I am your humble AI servant created by HAFS Artifical Intelligence Research Club.
+#             AI: How can I help you?
+#             Human: """ + text + """
+#             AI: """,
+#             temperature = 0.9,
+#             max_tokens=500
+#         )
+#         response = response.choices[0].text.replace("\n", "").lstrip()
+#     return response
 
-while True:
-    res = chat()
-    if len(res) > 30:
-        print("AI --> " + res)
-        converter.say(str(res))
-        converter.runAndWait()
-    else:
-        print("AI --> speaking...")
-        converter.say(str(res))
-        converter.runAndWait()
-        sys.stdout.write("\033[F")
-        time.sleep(1)
-        sys.stdout.write("\033[K")
-        print("AI --> " + res)
+# while True:
+#     res = chat()
+#     if len(res) > 30:
+#         print("AI --> " + res)
+#         converter.say(str(res))
+#         converter.runAndWait()
+#     else:
+#         print("AI --> speaking...")
+#         converter.say(str(res))
+#         converter.runAndWait()
+#         sys.stdout.write("\033[F")
+#         time.sleep(1)
+#         sys.stdout.write("\033[K")
+#         print("AI --> " + res)
