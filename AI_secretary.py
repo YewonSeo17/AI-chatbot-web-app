@@ -2,8 +2,8 @@ import os
 import sys
 import time
 import openai
-openai.api_key = "REDACTED"
-os.environ["OPENAI_API_KEY"] = "REDACTED"
+openai.api_key = "MY_OPENAI_API_KEY"
+os.environ["OPENAI_API_KEY"] = "MY_OPENAI_API_KEY"
 
 #브라우저
 from selenium import webdriver
@@ -31,15 +31,16 @@ converter.setProperty('volume', 1.0)
 import datetime
 
 #날씨정보
-import requests, json
-api_key = "3d6e2a14c4979bec99839f4ee58fe542"
+import requests
+import json
+api_key = "MY_OPENWEATHERMAP_API_KEY"
 base_url = "https://api.openweathermap.org/data/2.5/weather?"
 city_name = 'Yongin, KR'
 complete_url = base_url + "appid=" + api_key + "&q=" + city_name
 
 #시간
 def action_time():
-        return datetime.datetime.now().time().strftime('%H:%M')
+    return datetime.datetime.now().time().strftime('%H:%M')
 
 #날씨
 def action_weather():
@@ -52,12 +53,12 @@ def action_weather():
             current_humidity = y["humidity"]
             z = x["weather"]
             weather_description = z[0]["description"]
-            return "\n In " + city_name + ", there will be " + str(weather_description) + ", \n Temperature is " + str(round(float(current_temperature) - 273.15, 3)) + " degrees Celsius,\n atmospheric pressure is " + str(current_pressure) + " hecto pascal, \n and humidity is " + str(current_humidity) + " percent." 
+            return "\n In " + city_name + ", there will be " + str(weather_description) + ", \n Temperature is " + str(round(float(current_temperature) - 273.15, 3)) + " degrees Celsius,\n atmospheric pressure is " + str(current_pressure) + " hecto pascal, \n and humidity is " + str(current_humidity) + " percent."
         else:
             return " City is Not Found, please contact manager."
 
 
-os.system('cls')
+#os.system('cls')
 print("------------starting up Personal AI Secretary Service--------------")
 
 #인터넷 검색
@@ -128,33 +129,33 @@ def identify_searchword(input):
     return response
 
 #입력값 확인
-# def chat():
-#     text = InputTxt
-#     if "time" in text:
-#         response = "It is " + action_time() + "."
-#     elif any(i in text for i in ['weather', 'Weather', 'WEather']):
-#         response = action_weather()
-#     elif any(i in text.lower() for i in ['search', 'play', 'music', 'watch', 'youtube', 'song', 'internet', 'chrome', 'listen']):
-#         response = 'searching ' + search_web(text)
-#     else:
-#         response = openai.Completion.create(
-#             model='text-davinci-003',
-#             prompt = """
-#             The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.
-#             The completion can’t go to a new line.
-#             The completion can’t change the speaker.
-#             The completion won’t allow the speaker to speak twice in a row
+def chat():
+    text = input("me --> ")
+    if "time" in text:
+        response = "It is " + action_time() + "."
+    elif any(i in text for i in ['weather', 'Weather', 'WEather']):
+        response = action_weather()
+    elif any(i in text.lower() for i in ['search', 'play', 'music', 'watch', 'youtube', 'song', 'internet', 'chrome', 'listen']):
+        response = 'searching ' + search_web(text)
+    else:
+        response = openai.Completion.create(
+            model='text-davinci-003',
+            prompt = """
+            The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.
+            The completion can’t go to a new line.
+            The completion can’t change the speaker.
+            The completion won’t allow the speaker to speak twice in a row
 
-#             Human: Hello, who are you?
-#             AI: I am your humble AI servant created by HAFS Artifical Intelligence Research Club.
-#             AI: How can I help you?
-#             Human: """ + text + """
-#             AI: """,
-#             temperature = 0.9,
-#             max_tokens=500
-#         )
-#         response = response.choices[0].text.replace("\n", "").lstrip()
-#     return response
+            Human: Hello, who are you?
+            AI: I am your humble AI servant created by HAFS Artifical Intelligence Research Club.
+            AI: How can I help you?
+            Human: """ + text + """
+            AI: """,
+            temperature = 0.9,
+            max_tokens=500
+        )
+        response = response.choices[0].text.replace("\n", "").lstrip()
+    return response
 
 # while True:
 #     res = chat()
