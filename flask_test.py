@@ -10,6 +10,8 @@ app = Flask(__name__)
 def render_page():
     return render_template('index.html')
 
+toPassElement = []
+
 @app.route('/output', methods=['GET', 'POST'])
 def return_page():
     InputTxt = request.form['inputText']
@@ -43,6 +45,14 @@ def return_page():
             return response
 
     res = chat()
-    return render_template('result.html', output_Text = res)
+    myLine = "me --> " + InputTxt
+    aiLine = "AI --> " + res
+    toPassElement.append(myLine)
+    toPassElement.append(aiLine)
+
+    if(InputTxt == "cls"):
+        toPassElement.clear()
+
+    return render_template('result.html', toPass = toPassElement)
 
 app.run(debug=True)

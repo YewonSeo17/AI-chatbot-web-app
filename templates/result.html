@@ -26,8 +26,17 @@
         <input type="TEXT" name="inputText" placeholder="enter your massage">
         <input type="SUBMIT" name="submit" value="submit">
     </form>
+    <!-- <div id="inputText">
+        <label>{{input_Text}}</label>
+    </div>
     <div id="outputText">
-        {{output_Text}}
+        <mark>{{output_Text}}</mark>
+    </div> -->
+    {% for v in toPass %}
+    <div>{{ v }}</div>
+    {% endfor %}
+    <div id="comment">
+        Type "cls" to clear screen.
     </div>
 </body>
 </html>
