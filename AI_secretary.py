@@ -2,8 +2,8 @@ import os
 import sys
 import time
 import openai
-openai.api_key = "MY_OPENAI_API_KEY"
-os.environ["OPENAI_API_KEY"] = "MY_OPENAI_API_KEY"
+openai.api_key = MY_KEY
+os.environ["OPENAI_API_KEY"] = MY_KEY
 
 #브라우저
 from selenium import webdriver
@@ -33,7 +33,7 @@ import datetime
 #날씨정보
 import requests
 import json
-api_key = "MY_OPENWEATHERMAP_API_KEY"
+api_key = "MY_KEY_WEATHERMAP"
 base_url = "https://api.openweathermap.org/data/2.5/weather?"
 city_name = 'Yongin, KR'
 complete_url = base_url + "appid=" + api_key + "&q=" + city_name
